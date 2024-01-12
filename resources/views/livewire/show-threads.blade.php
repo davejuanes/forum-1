@@ -7,7 +7,7 @@
         <ul>
             @foreach ($categories as $category)
                 <li class="mb-2">
-                    <a href=""
+                    <a href="#" wire:click.prevent="filterByCategory('{{ $category->id }}')"
                         class="p-2 rounded-md flex bg-slate-800 items-center gap-2 text-white/60 hover:text-white font-semibold text-xs capitalize">
                         <span class="w-2 h-2 rounded-full" style="background-color: {{ $category->color }};"></span>
                         {{ $category->name }}
@@ -15,7 +15,7 @@
                 </li>
             @endForeach
             <li>
-                <a href=""
+                <a href="#" wire:click.prevent="filterByCategory('')"
                     class="p-2 rounded-md flex bg-slate-800 items-center gap-2 text-white/60 hover:text-white font-semibold text-xs">
                     <span class="w-2 h-2 rounded-full" style="background-color: #000;"></span>
                     Todos los resultados
@@ -40,7 +40,7 @@
                     </div>
                     <div class="w-full">
                         <h2 class="mb-4 flex items-start justify-between">
-                            <a href="" class="text-xl font-semibold text-white/90">
+                            <a href="{{ route('thread', $thread ) }}" class="text-xl font-semibold text-white/90">
                                 {{ $thread->title }}
                             </a>
                             <span class="rounded-full text-xs py-2 px-4 capitalize"
