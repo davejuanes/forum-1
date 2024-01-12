@@ -8,9 +8,17 @@
                 <p class="mb-2 text-blue-600 font-semibold">
                     {{ $reply->user->name }}
                 </p>
-                <p class="text-white/60 text-xs">
-                    {{ $reply->body }}
-                </p>
+                @if ($is_editing)
+                    <form wire:submit.prevent="updateReply" class="mt-4">
+                        <input type="text" placeholder="Escribe una respuesta"
+                            class="bg-slate-800 border-1 border-slate-600 rounded-md w-full p-3 text-white/60 text-xs"
+                            wire:model.defer="body">
+                    </form>
+                @else
+                    <p class="text-white/60 text-xs">
+                        {{ $reply->body }}
+                    </p>
+                @endif
                 @if ($is_creating)
                     <form wire:submit.prevent="postChild" class="mt-4">
                         <input type="text" placeholder="Escribe una respuesta"
@@ -24,7 +32,7 @@
                         <a href="" wire:click.prevent="$toggle('is_creating')"
                             class="hover:text-white">Responder</a>
                     @endif
-                    <a href="" class="hover:text-white">Editar</a>
+                    <a href="" wire:click.prevent="$toggle('is_editing')" class="hover:text-white">Editar</a>
                 </p>
             </div>
         </div>

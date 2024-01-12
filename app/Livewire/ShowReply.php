@@ -10,20 +10,36 @@ class ShowReply extends Component
     public Reply $reply;
     public $body = false;
     public $is_creating = '';
+    public $is_editing = '';
     protected $listeners = ['refresh' => '$refresh'];
-    
+    public function updatedIsEditing() {
+
+    }
     public function render()
     {
         return view('livewire.show-reply');
     }
-    public function postChild() {
-        if (! is_null($this->reply->reply_id)) return;
+    public function updateReply()
+    {
+        // validate
+        $this->validate(['body' => 'required']);
+
+        // update
+        $this->reply->update(['body' => $this->body]);
+
+        // refresh
+        $this->is_editing = false;
+    }
+    public function postChild()
+    {
+        if (!is_null($this->reply->reply_id))
+            return;
 
         // validate
         $this->validate([
             'body' => 'required'
         ]);
-        
+
         // crear
         auth()->user()->replies()->create([
             'reply_id' => $this->reply->id,
