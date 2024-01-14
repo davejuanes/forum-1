@@ -1,6 +1,6 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-10 py-12">
     <div class="w-64">
-        <a href=""
+        <a href="{{ route('threads.create') }}"
             class="block w-full py-4 mb-10 bg-gradient-to-r from-blue-600 to-blue-700 hover:to-blue-600 text-white/90 font-bold text-xs text-center rounded-md">
             Preguntar
         </a>
@@ -25,12 +25,8 @@
     </div>
     <div class="w-full">
         <form action="" class="mb-4">
-            <input 
-                type="text" 
-                placeholder="// ..."
-                class="bg-slate-800 border-0 rounded-md w-1/3 p-3 text-white/60 text-xs"
-                wire:model.live="search"
-                >
+            <input type="text" placeholder="// ..."
+                class="bg-slate-800 border-0 rounded-md w-1/3 p-3 text-white/60 text-xs" wire:model.live="search">
         </form>
         @foreach ($threads as $thread)
             <div class="rounded-md bg-gradient-to-r from-slate-800 to-slate-900 hover:to-slate-800 mb-4">
@@ -40,7 +36,7 @@
                     </div>
                     <div class="w-full">
                         <h2 class="mb-4 flex items-start justify-between">
-                            <a href="{{ route('thread', $thread ) }}" class="text-xl font-semibold text-white/90">
+                            <a href="{{ route('thread', $thread) }}" class="text-xl font-semibold text-white/90">
                                 {{ $thread->title }}
                             </a>
                             <span class="rounded-full text-xs py-2 px-4 capitalize"
@@ -60,12 +56,15 @@
                                 </svg>
                                 {{ $thread->replies_count }}
                                 Respuesta{{ $thread->replies_count !== 1 ? 's' : '' }}
-                                <a href="{{ route('threads.edit', $thread) }}" class="hover:text-white">Editar</a>
+                                @can('update', $thread)
+                                    <a href="{{ route('threads.edit', $thread) }}" class="hover:text-white">Editar</a>
+                                @endcan
                             </span>
                         </p>
                     </div>
                 </div>
             </div>
         @endforeach
+        {{ $threads->links() }}
     </div>
 </div>

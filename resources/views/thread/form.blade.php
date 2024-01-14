@@ -28,7 +28,5 @@
         name="body" 
         rows="10"
         placeholder="Descripción del problema"
-        class="bg-slate-800 border-slate-900 rounded-md w-full p-3 text-white/60 text-xs  mb-4">
-        {{ old('body', $thread->body) }}
-    </textarea>
+        class="bg-slate-800 border-slate-900 rounded-md w-full p-3 text-white/60 text-xs  mb-4">{{ old('body', $thread->body) }}</textarea>
 </div>
